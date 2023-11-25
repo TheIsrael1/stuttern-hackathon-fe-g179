@@ -23,6 +23,7 @@ const TopNavDrawer = ({
         >
           <SideNav onNavAction={() => setNavOpen(false)} />
         </div>,
+
         document.body
       )}
     </>

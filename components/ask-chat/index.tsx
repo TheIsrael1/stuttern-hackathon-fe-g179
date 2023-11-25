@@ -76,7 +76,7 @@ const Input = React.forwardRef<HTMLInputElement, InputInterface>(
     return (
       <div
         className={cn(
-          'w-full flex items-center h-[3rem] rounded-[1rem] border border-gray-4 pl-8 pr-[4px]'
+          'w-full flex items-center h-[3rem] rounded-[1rem] border border-gray-4 pl-8 pr-[8px]'
         )}
       >
         <input

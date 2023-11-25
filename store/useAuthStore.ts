@@ -1,6 +1,6 @@
-import { userDetailsInterface } from "@/types/api.types";
-import { create } from "zustand";
-import { persist } from "zustand/middleware";
+import { userDetailsInterface } from '@/types/api.types';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 interface AuthStoreState {
   loggedIn: boolean;
@@ -24,24 +24,24 @@ const useAuthStore = create<AuthStoreState>()(
       logoutOpen: false,
       setAuthDetails: (i: userDetailsInterface) =>
         set((state) => ({
-          authDetails: i,
+          authDetails: i
         })),
 
       setLoginOpen: (i) =>
         set((state) => ({
-          loginOpen: i,
+          loginOpen: i
         })),
 
       setLogoutOpen: (i) =>
         set((state) => ({
-          logoutOpen: i,
+          logoutOpen: i
         })),
 
       setSignUpOpen: (i: boolean) => set((state) => ({ signUpOpen: i })),
 
-      setLoggedIn: (i: boolean) => set((state) => ({ loggedIn: i })),
+      setLoggedIn: (i: boolean) => set((state) => ({ loggedIn: i }))
     }),
-    { name: "auth-storage" }
+    { name: 'auth-storage' }
   )
 );
 

@@ -5,6 +5,7 @@ import { landingNavData } from './landing-nav.data';
 import Link from 'next/link';
 import { Button } from '@nextui-org/react';
 import dynamic from 'next/dynamic';
+import Auth from '@/components/auth';
 const LandingMenu = dynamic(() => import('@/components/partials/landing-menu'), { ssr: false });
 
 const LandingNav = () => {
@@ -28,28 +29,7 @@ const LandingNav = () => {
           ))}
         </ul>
         <div className="flex items-center gap-[0.75rem]">
-          <Button
-            radius="full"
-            endContent={
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform ease-in-out duration-300"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-                />
-              </svg>
-            }
-            className="text-white bg-button-gradient-1 px-[1.5rem] py-[0.75rem] group hidden md:flex"
-          >
-            Try LobeAI
-          </Button>
+          <Auth className="hidden md:flex" />
           <LandingMenu />
         </div>
       </div>

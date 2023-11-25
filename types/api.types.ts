@@ -1,2 +1,4 @@
 // create a zod scehma and assign the infered type
-export interface userDetailsInterface {}
+export interface userDetailsInterface {
+  token?: string;
+}

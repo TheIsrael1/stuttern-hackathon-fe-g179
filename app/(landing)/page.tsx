@@ -6,6 +6,7 @@ import edx from '@/assets/svg/landing/edx.svg';
 import google from '@/assets/svg/landing/google.svg';
 import expo from '@/assets/svg/landing/expo.svg';
 import { BackGroundTint } from './landing.components';
+import Auth from '@/components/auth';
 
 export default function page() {
   return (
@@ -17,28 +18,7 @@ export default function page() {
         <p className="text-[1rem] md:text-[1.125rem] text-white leading-[1.5625rem] md:leading-normal mb-[3rem] md:mb-[2.9rem]">
           Transform natural language into powerful queries.
         </p>
-        <Button
-          radius="full"
-          endContent={
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="w-6 h-6 text-white group-hover:translate-x-1 transition-transform ease-in-out duration-300"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
-              />
-            </svg>
-          }
-          className="text-white bg-button-gradient-1 px-[1.5rem] py-[0.75rem] group w-max md:mx-auto"
-        >
-          Try LobeAI
-        </Button>
+        <Auth className="w-max md:mx-auto" />
       </section>
       <section className="w-full relative grid place-items-center px-container-base lg:px-container-lg">
         <BackGroundTint className={'absolute top-0 mx-auto hidden md:flex'} />
