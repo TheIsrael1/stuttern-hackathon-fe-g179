@@ -1,5 +1,5 @@
 import { getToken } from 'next-auth/jwt';
-import { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(request: NextRequest) {
   const token = await getToken({
@@ -8,5 +8,5 @@ export async function GET(request: NextRequest) {
   });
   console.log('tok req', token);
 
-  return Response.json({ token });
+  return NextResponse.json({ token });
 }
