@@ -3,9 +3,13 @@ import { myFetch } from '..';
 
 const getToken = async () => {
   try {
-    const headersInstance = headers();
+    const headersList = headers();
+    const cookie = headersList.get('cookie');
+
     const res = await myFetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/token`, {
-      headers: headersInstance
+      headers: {
+        Cookie: cookie
+      } as unknown as HeadersInit
     });
     const data = res.json();
 

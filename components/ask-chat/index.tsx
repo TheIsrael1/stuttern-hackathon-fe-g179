@@ -67,7 +67,7 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
           conversation_id: currConversationId
         }
       }),
-    enabled: currConversationId.length ? true : false
+    enabled: currConversationId?.length ? true : false
   });
 
   const {
