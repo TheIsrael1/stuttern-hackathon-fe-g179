@@ -1,7 +1,6 @@
 import authService from '@/adapters/auth';
 import DbConnection from '@/components/db-connection';
 import { redirect } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 export default async function page() {
   let token = '';
@@ -10,7 +9,6 @@ export default async function page() {
     const data = await authService.getToken();
     token = data?.token?.token;
   } catch (err) {
-    toast.error(`${err}`);
     redirect(`/error`);
   }
 

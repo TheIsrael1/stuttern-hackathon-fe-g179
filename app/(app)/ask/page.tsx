@@ -4,7 +4,6 @@ import databaseService from '@/adapters/database';
 import AskChat from '@/components/ask-chat';
 import { ApiInterface, conversationInterface, dbInterface } from '@/types/api.types';
 import { redirect } from 'next/navigation';
-import toast from 'react-hot-toast';
 
 export default async function page() {
   let databases: ApiInterface<dbInterface[]> = { data: [], status: '' };
@@ -27,7 +26,6 @@ export default async function page() {
     databases = databaseData;
     history = historyData;
   } catch (err) {
-    toast.error(`${err}`);
     redirect('/error');
   }
 
