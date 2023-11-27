@@ -52,8 +52,8 @@ const HistoryTab = ({ createConversation, history, setCurrConverstion, token }: 
         </Button>
       </div>
       {isLoading ? (
-        <div className="flex justify-center">
-          <ReactLoading type="spin" color="#fff" />
+        <div className="w-full flex justify-center items-center">
+          <ReactLoading type="spin" color="#ffffff" />
         </div>
       ) : (
         <div className="w-full flex flex-col gap-[1.5rem] max-h-max overflow-auto">
