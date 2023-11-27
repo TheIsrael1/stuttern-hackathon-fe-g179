@@ -108,8 +108,8 @@ const DbConnection = ({ token }: IDbConnection) => {
                 Testing Connection...
               </h4>
               <p className="text-center  font-jakarta text-[0.875rem] text-gray-6">
-                We're attempting to connect using the provided credentials. Please wait as we ensure
-                a secure and successful connection to your database.
+                {`We're attempting to connect using the provided credentials. Please wait as we ensure
+                a secure and successful connection to your database.`}
               </p>
             </ModalBody>
           ) : isSuccess ? (

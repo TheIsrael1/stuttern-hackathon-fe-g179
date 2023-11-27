@@ -15,7 +15,7 @@ export default function TextAnim({ text }: { text: string }) {
       ease: 'easeInOut'
     });
     return controls.stop;
-  }, []);
+  }, [baseText?.length]);
 
   return (
     <span className="">
