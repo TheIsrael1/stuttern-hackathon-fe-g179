@@ -8,6 +8,7 @@ export default function TextAnim({ text }: { text: string }) {
   const rounded = useTransform(count, (latest) => Math.round(latest));
   const displayText = useTransform(rounded, (latest) => baseText.slice(0, latest));
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const controls = animate(count, baseText.length, {
       type: 'tween',
@@ -15,7 +16,7 @@ export default function TextAnim({ text }: { text: string }) {
       ease: 'easeInOut'
     });
     return controls.stop;
-  }, [baseText?.length]);
+  }, []);
 
   return (
     <span className="">
