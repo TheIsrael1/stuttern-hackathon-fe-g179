@@ -27,7 +27,7 @@ export default async function page() {
     history = historyData;
   } catch (err) {
     console.log('An error occurred', err);
-    // redirect('/error');
+    redirect('/error');
   }
 
   return (
