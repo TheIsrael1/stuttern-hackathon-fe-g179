@@ -81,7 +81,7 @@ const DbConnection = ({ token }: IDbConnection) => {
     reset({
       database_type: selectedDb
     });
-  }, [selectedDb]);
+  }, [selectedDb, reset]);
 
   return (
     <>

@@ -1,5 +1,5 @@
 import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import CursorBlinker from '../cursor-blinker';
 
 export default function TextAnim({ text }: { text: string }) {

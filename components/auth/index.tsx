@@ -25,7 +25,7 @@ const Auth = ({ className }: { className?: string }) => {
 
     console.log('sss', jwt);
     setAuthDetails({ token: jwt });
-  }, [session]);
+  }, [session, setAuthDetails]);
 
   useEffect(() => {
     createToken();
