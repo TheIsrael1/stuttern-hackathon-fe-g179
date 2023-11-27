@@ -6,13 +6,11 @@ import { ApiInterface, conversationInterface, dbInterface } from '@/types/api.ty
 import { redirect } from 'next/navigation';
 
 export default async function page() {
+  const tokenData = await authService.getToken();
   let databases: ApiInterface<dbInterface[]> = { data: [], status: '' };
   let history: ApiInterface<conversationInterface[]> = { data: [], status: '' };
-  let token = '';
 
   try {
-    const tokenData = await authService.getToken();
-
     const [databaseData, historyData] = await Promise.all([
       databaseService.getDatabases({
         token: tokenData?.token?.token
@@ -22,7 +20,6 @@ export default async function page() {
       })
     ]);
 
-    token = tokenData?.token?.token;
     databases = databaseData;
     history = historyData;
   } catch (err) {
@@ -32,7 +29,7 @@ export default async function page() {
 
   return (
     <main className="w-full h-full">
-      <AskChat history={history} initDatabases={databases} token={token} />
+      <AskChat history={history} initDatabases={databases} token={tokenData?.token?.token} />
     </main>
   );
 }
