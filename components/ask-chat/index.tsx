@@ -26,6 +26,7 @@ const DbToggler = dynamic(() => import('@/components/db-toggler'), { ssr: false 
 import logo from '@/assets/svg/logo.svg';
 import ReactLoading from 'react-loading';
 import { Skeleton } from '@nextui-org/react';
+import { useSearchParams } from 'next/navigation';
 
 interface IAskChat {
   token: string;
@@ -39,6 +40,10 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
   const { activeDb, setActiveDb } = useAuthStore((store) => store);
   const [propmt, setPrompt] = useState(``);
   const [currConversationId, setCurrConversationId] = useState(``);
+
+  const searchParams = useSearchParams();
+
+  const isDemo = searchParams.get('isDemo');
 
   const chatBlockBaseRef = useRef<HTMLDivElement | null>(null);
 
@@ -144,6 +149,13 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
       block: 'end'
     });
   }, [conversation, currConversationId, promtCreationLoading]);
+
+  useEffect(() => {
+    if (isDemo === 'true') {
+      setActiveDb(databases?.data[0]?.id);
+      setCurrConversationId(history?.data?.[0]?.id);
+    }
+  }, [isDemo, databases, conversation]);
 
   return (
     <div className="w-full h-full flex">

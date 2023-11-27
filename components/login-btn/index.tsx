@@ -8,7 +8,7 @@ import google from '@/assets/svg/login/google.svg';
 const LoginBtn = () => {
   return (
     <Button
-      onClick={() => signIn('google', { callbackUrl: '/ask' })}
+      onClick={() => signIn('google', { callbackUrl: '/guide' })}
       fullWidth
       className={cn(
         'text-white bg-transparent h-[2.625rem] border border-gray-1 rounded-[0.25rem] w-full'

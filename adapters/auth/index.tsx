@@ -3,8 +3,9 @@ import { myFetch } from '..';
 
 const getToken = async () => {
   try {
+    const headersInstance = headers();
     const res = await myFetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/token`, {
-      headers: headers()
+      headers: headersInstance
     });
     const data = res.json();
 

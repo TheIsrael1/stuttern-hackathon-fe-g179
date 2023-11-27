@@ -21,13 +21,15 @@ interface INavLinks {
   link: string;
   icon: JSX.Element;
   isDisabled?: boolean;
+  isTryDemo?: boolean;
 }
 
 const navLinks: INavLinks[] = [
   { title: `Ask`, icon: <AskIcon />, link: `/ask` },
   { title: `Database`, icon: <DbIcon />, link: `/database` },
   { title: `Settings`, icon: <SettingsIcon />, link: `#`, isDisabled: true },
-  { title: `User Guide`, icon: <GuideIcon />, link: `/guide` }
+  { title: `User Guide`, icon: <GuideIcon />, link: `/guide` },
+  { title: `Try Demo`, icon: <AskIcon />, link: `/ask?isDemo=true` }
 ];
 
 interface ISideNav {
