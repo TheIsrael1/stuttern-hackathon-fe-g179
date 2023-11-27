@@ -22,20 +22,16 @@ const createDatabase = async ({
 };
 
 const getDatabases = async ({ token }: RequestParamsWithToken<any>) => {
-  try {
-    const res = await myFetch(`${BASE_URL}/get-db`, {
-      headers: {
-        ...COMMON_HEADER.headers,
-        Authorization: bearifyToken(token)
-      },
-      method: 'GET'
-    });
-    const data = res.json();
+  const res = await myFetch(`${BASE_URL}/get-db`, {
+    headers: {
+      ...COMMON_HEADER.headers,
+      Authorization: bearifyToken(token)
+    },
+    method: 'GET'
+  });
+  const data = res.json();
 
-    return data;
-  } catch (err) {
-    console.log('error', err);
-  }
+  return data;
 };
 
 const databaseService = { createDatabase, getDatabases };

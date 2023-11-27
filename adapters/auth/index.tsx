@@ -1,9 +1,8 @@
-import { cookies, headers } from 'next/headers';
+import { headers } from 'next/headers';
 import { myFetch } from '..';
+import { processError } from '@/lib/error';
 
 const getToken = async () => {
-  const cookiesList = cookies();
-
   const res = await myFetch(`${process.env.NEXTAUTH_URL}/api/token`, {
     headers: headers()
   });

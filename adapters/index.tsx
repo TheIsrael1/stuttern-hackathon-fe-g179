@@ -17,7 +17,6 @@ export async function myFetch(...options: Parameters<typeof fetch>): Promise<Res
     const err = await res.json();
     throw new ResponseError(`${err?.detail ?? `Bad fetch response`}`, res);
   }
-
   return res;
 }
 

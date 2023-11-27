@@ -9,10 +9,10 @@ export class ResponseError extends Error {
   }
 }
 
-export const processError = (err: any) => {
+export const processError = (err: any): ResponseError => {
   if (err instanceof ResponseError) {
-    if (err.response.status === 404) {
-      toast.error(`Not Found`);
-    }
+    toast.error(`${err?.message}`);
   }
+
+  return err;
 };
