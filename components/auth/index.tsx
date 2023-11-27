@@ -23,7 +23,7 @@ const Auth = ({ className }: { className?: string }) => {
       .setProtectedHeader({ alg })
       .sign(secret);
 
-    console.log('sss', jwt);
+    // console.log('sss', jwt);
     setAuthDetails({ token: jwt });
   }, [session, setAuthDetails]);
 

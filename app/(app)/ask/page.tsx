@@ -2,6 +2,7 @@ import authService from '@/adapters/auth';
 import conversationService from '@/adapters/conversation';
 import databaseService from '@/adapters/database';
 import AskChat from '@/components/ask-chat';
+import { ResponseError } from '@/lib/error';
 import { ApiInterface, conversationInterface, dbInterface } from '@/types/api.types';
 
 export default async function page() {
@@ -16,7 +17,17 @@ export default async function page() {
       token: tokenData?.token?.token
     });
 
-  const [databases, history] = await Promise.all([databaseData, historyData]);
+  let history: ApiInterface<conversationInterface[]> = { status: '', data: [] };
+  let databases: ApiInterface<dbInterface[]> = { status: '', data: [] };
+
+  Promise.all([databaseData, historyData])
+    .then((res) => {
+      databases = res[0];
+      history = res[1];
+    })
+    .catch((err) => {
+      console.log('error', err);
+    });
 
   return (
     <main className="w-full h-full">
