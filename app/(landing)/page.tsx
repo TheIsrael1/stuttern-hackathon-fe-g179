@@ -8,7 +8,7 @@ import expo from '@/assets/svg/landing/expo.svg';
 import { BackGroundTint } from './landing.components';
 import Auth from '@/components/auth';
 
-export default function page() {
+export default async function page() {
   return (
     <main className="w-full relative flex flex-col py-[10rem] gap-[6.89rem]">
       <section className="relative w-full flex flex-col md:items-center container px-container-base lg:px-container-lg">

@@ -54,7 +54,9 @@ const config: Config = {
           1: '#EAEAEA',
           2: '#A3A3A3',
           3: '#6F6F6F',
-          4: '#D4D4D4'
+          4: '#D4D4D4',
+          5: '#BDBCBC',
+          6: '#A2A2A2'
         }
       },
       backgroundImage: {

@@ -22,7 +22,7 @@ export async function middleware(request: NextRequest) {
     .setProtectedHeader({ alg })
     .sign(secret);
 
-  requestHeaders.set('token', `${jwt}`);
+  requestHeaders.set('test', `test`);
 
   console.log('reqqhhsss', requestHeaders);
 

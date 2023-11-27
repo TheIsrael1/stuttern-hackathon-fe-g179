@@ -1,4 +1,4 @@
-import toast from "react-hot-toast";
+import toast from 'react-hot-toast';
 
 export class ResponseError extends Error {
   response: Response;
@@ -9,7 +9,7 @@ export class ResponseError extends Error {
   }
 }
 
-const processError = (err: any) => {
+export const processError = (err: any) => {
   if (err instanceof ResponseError) {
     if (err.response.status === 404) {
       toast.error(`Not Found`);

@@ -13,17 +13,20 @@ import { User } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { generateAvatarPlaceholderLink } from '@/lib';
+import { useSession } from 'next-auth/react';
+import toast from 'react-hot-toast';
 
 interface INavLinks {
   title: string;
   link: string;
   icon: JSX.Element;
+  isDisabled?: boolean;
 }
 
 const navLinks: INavLinks[] = [
   { title: `Ask`, icon: <AskIcon />, link: `/ask` },
   { title: `Database`, icon: <DbIcon />, link: `/database` },
-  { title: `Settings`, icon: <SettingsIcon />, link: `/settings` },
+  { title: `Settings`, icon: <SettingsIcon />, link: `#`, isDisabled: true },
   { title: `User Guide`, icon: <GuideIcon />, link: `/guide` }
 ];
 
@@ -34,6 +37,7 @@ interface ISideNav {
 const SideNav = ({ onNavAction }: ISideNav) => {
   const [navOpen, setNavOpen] = useState(true);
   const pathname = usePathname();
+  const { data: user } = useSession();
 
   return (
     <div
@@ -80,51 +84,98 @@ const SideNav = ({ onNavAction }: ISideNav) => {
         </Button>
       </div>
       <div className="flex-grow pt-[5.75rem] flex flex-col gap-[1.75rem] overflow-hidden">
-        {navLinks?.map((i, idx) => (
-          <Link
-            onClick={() => onNavAction?.()}
-            href={i?.link}
-            key={idx}
-            className={cn('w-full relative bg-inherit group pl-[1rem] h-[2.75rem] cursor-pointer ')}
-          >
+        {navLinks?.map((i, idx) =>
+          i?.isDisabled ? (
             <div
+              onClick={() => {
+                toast.success('Set your prefrences! This feature is coming soon!');
+              }}
+              key={idx}
               className={cn(
-                `w-full absolute top-0 h-full bg-white rounded-tl-[0.25rem] rounded-bl-[0.25rem] z-[1]  
-              transition-transform ease-in-out duration-200`,
-                pathname === `${i?.link}`
-                  ? `translate-x-0`
-                  : `translate-x-full group-hover:translate-x-0`
-              )}
-            ></div>
-            <button
-              className={cn(
-                `w-full h-full relative  min-w-[2.75rem] px-4 
-                 cursor-pointer transition-colors ease-in-out duration-300 z-[2] bg-transparent `,
-                `flex items-center gap-[0.75rem]`,
-                pathname === `${i?.link}` ? `text-black-2` : `text-white group-hover:text-black-2`
+                'w-full relative bg-inherit group pl-[1rem] h-[2.75rem] cursor-pointer '
               )}
             >
-              <span className="">{i?.icon}</span>
-              <span
+              <div
                 className={cn(
-                  'text-[0.875rem] font-[600] transition-opacity duration-300 whitespace-nowrap',
-                  navOpen ? `opacity-100` : `md:scale-0 md:opacity-5`
+                  `w-full absolute top-0 h-full bg-white rounded-tl-[0.25rem] rounded-bl-[0.25rem] z-[1]  
+              transition-transform ease-in-out duration-200`,
+                  pathname === `${i?.link}`
+                    ? `translate-x-0`
+                    : `translate-x-full group-hover:translate-x-0`
+                )}
+              ></div>
+              <button
+                className={cn(
+                  `w-full h-full relative  min-w-[2.75rem] px-4 
+                 cursor-pointer transition-colors ease-in-out duration-300 z-[2] bg-transparent `,
+                  `flex items-center gap-[0.75rem]`,
+                  pathname === `${i?.link}` ? `text-black-2` : `text-white group-hover:text-black-2`
                 )}
               >
-                {i?.title}
-              </span>
-            </button>
-          </Link>
-        ))}
+                <span className="">{i?.icon}</span>
+                <span
+                  className={cn(
+                    'text-[0.875rem] font-[600] transition-opacity duration-300 whitespace-nowrap',
+                    navOpen ? `opacity-100` : `scale-0 md:opacity-5`
+                  )}
+                >
+                  {i?.title}
+                </span>
+              </button>
+            </div>
+          ) : (
+            <Link
+              onClick={() => {
+                onNavAction?.();
+                i?.isDisabled ? toast.custom('This feature is coming soon!') : null;
+              }}
+              href={i?.link}
+              key={idx}
+              className={cn(
+                'w-full relative bg-inherit group pl-[1rem] h-[2.75rem] cursor-pointer '
+              )}
+            >
+              <div
+                className={cn(
+                  `w-full absolute top-0 h-full bg-white rounded-tl-[0.25rem] rounded-bl-[0.25rem] z-[1]  
+              transition-transform ease-in-out duration-200`,
+                  pathname === `${i?.link}`
+                    ? `translate-x-0`
+                    : `translate-x-full group-hover:translate-x-0`
+                )}
+              ></div>
+              <button
+                className={cn(
+                  `w-full h-full relative  min-w-[2.75rem] px-4 
+                 cursor-pointer transition-colors ease-in-out duration-300 z-[2] bg-transparent `,
+                  `flex items-center gap-[0.75rem]`,
+                  pathname === `${i?.link}` ? `text-black-2` : `text-white group-hover:text-black-2`
+                )}
+              >
+                <span className="">{i?.icon}</span>
+                <span
+                  className={cn(
+                    'text-[0.875rem] font-[600] transition-opacity duration-300 whitespace-nowrap',
+                    navOpen ? `opacity-100` : `scale-0 md:opacity-5`
+                  )}
+                >
+                  {i?.title}
+                </span>
+              </button>
+            </Link>
+          )
+        )}
       </div>
       <div className="w-full px-[1.5rem]">
         <User
-          name="Jane Doe"
-          description="Product Designer"
+          name={user?.user?.name ?? 'anon'}
+          description="user"
           avatarProps={{
-            src: generateAvatarPlaceholderLink({
-              name: `Jane Doe`
-            })
+            src:
+              user?.user?.image ??
+              generateAvatarPlaceholderLink({
+                name: user?.user?.name ?? 'anon'
+              })
           }}
           classNames={{
             name: cn(

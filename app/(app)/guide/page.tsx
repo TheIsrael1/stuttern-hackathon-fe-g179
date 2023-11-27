@@ -2,13 +2,16 @@ import Image from 'next/image';
 import guideVideoPlaceholder from '@/assets/images/guideVideoPh.png';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
+import authService from '@/adapters/auth';
 
-export default function page() {
+export default async function page() {
+  const data = await authService.getToken();
+
   return (
     <main className="w-full container px-container-base py-[3.38rem] flex flex-col gap-[2rem] md:gap-[4.06rem]">
       <div className="flex flex-col gap-[1.5rem] md:gap-[3.19rem]">
         <span className="text-4 md:text-[1.25rem] font-[700] text-white text-center">
-          Welcome Mathew!
+          Welcome {`${data?.token?.name}`}!
         </span>
         <div className="flex flex-col gap-[1rem] md:gap-[1.5rem]">
           <h2 className="text-[1.5rem] md:text-[2rem] font-[700] text-center text-white">

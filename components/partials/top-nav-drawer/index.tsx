@@ -17,7 +17,7 @@ const TopNavDrawer = ({
       {createPortal(
         <div
           className={cn(
-            'fixed w-screen h-screen top-0 bottom-0 right-0 left-0 transition-all ease-in-out duration-300',
+            'fixed w-screen h-screen top-0 bottom-0 right-0 left-0 transition-all ease-in-out duration-300 z-[1000]',
             navOpen ? `translate-x-0 opacity-100` : `translate-x-full opacity-0`
           )}
         >
