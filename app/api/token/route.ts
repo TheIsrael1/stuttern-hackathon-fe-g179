@@ -6,7 +6,10 @@ export async function GET(request: NextRequest) {
     req: request,
     secret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
   });
-  console.log('tok req', token);
 
-  return NextResponse.json({ token });
+  if (!token) {
+    return NextResponse.json({}, { status: 200 });
+  }
+
+  return NextResponse.json({ token }, { status: 200 });
 }
