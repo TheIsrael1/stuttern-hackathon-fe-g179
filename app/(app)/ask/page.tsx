@@ -26,6 +26,7 @@ export default async function page() {
     databases = databaseData;
     history = historyData;
   } catch (err) {
+    console.log('An error occurred', err);
     redirect('/error');
   }
 

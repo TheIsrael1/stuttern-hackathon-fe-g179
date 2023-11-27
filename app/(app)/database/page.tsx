@@ -9,6 +9,7 @@ export default async function page() {
     const data = await authService.getToken();
     token = data?.token?.token;
   } catch (err) {
+    console.log('An error occurred', err);
     redirect(`/error`);
   }
 
