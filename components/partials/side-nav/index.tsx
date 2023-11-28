@@ -170,7 +170,7 @@ const SideNav = ({ onNavAction }: ISideNav) => {
       </div>
       <div className="w-full px-[1.5rem]">
         <User
-          name={`${truncateString(`${user?.user?.name}`, 18)}` ?? 'anon'}
+          name={`${truncateString(`${user?.user?.name}`, 16)}` ?? 'anon'}
           description="user"
           avatarProps={{
             src:
