@@ -181,11 +181,11 @@ const SideNav = ({ onNavAction }: ISideNav) => {
           }}
           classNames={{
             name: cn(
-              ` text-[1rem] font-[600] !text-white transition-opacity duration-300 whitespace-nowrap`,
+              ` text-[1rem] font-[600] !text-white transition-opacity duration-300 whitespace-nowrap truncate ...`,
               navOpen ? `opacity-100` : `md:scale-0 md:opacity-5`
             ),
             description: cn(
-              `!text-gray-1 !font-[500] !text-[0.875rem] transition-opacity duration-300 whitespace-nowrap`,
+              `!text-gray-1 !font-[500] !text-[0.875rem] transition-opacity duration-300 whitespace-nowrap truncate ...`,
               navOpen ? `opacity-100` : `md:scale-0 md:opacity-5`
             ),
             base: ``
