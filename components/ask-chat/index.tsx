@@ -309,7 +309,11 @@ interface InputInterface extends React.InputHTMLAttributes<HTMLInputElement> {
 const Input = React.forwardRef<HTMLInputElement, InputInterface>(
   ({ wrapperClassName, onRightBtnClick, rightBtnClickDisabled, ...props }, ref) => {
     return (
-      <div
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onRightBtnClick?.();
+        }}
         className={cn(
           'w-full flex items-center h-[3rem] rounded-[1rem] border border-gray-4 pl-8 pr-[8px]'
         )}
@@ -321,14 +325,14 @@ const Input = React.forwardRef<HTMLInputElement, InputInterface>(
         />
         <Button
           disabled={rightBtnClickDisabled}
-          onClick={() => onRightBtnClick?.()}
           radius="sm"
           isIconOnly
           className="bg-transparent hover:bg-white/10 focus:outline-none"
+          type="submit"
         >
           <Image src={Kite} alt="" />
         </Button>
-      </div>
+      </form>
     );
   }
 );
