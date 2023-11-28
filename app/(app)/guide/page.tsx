@@ -91,7 +91,7 @@ export default async function page() {
               Get Started
             </Button>
           </Link>
-          <Link href={`/ask`}>
+          <Link href={`/ask?isDemo=true`}>
             <Button
               radius="full"
               endContent={
