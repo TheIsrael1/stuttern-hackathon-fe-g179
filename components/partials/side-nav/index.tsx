@@ -114,7 +114,7 @@ const SideNav = ({ onNavAction }: ISideNav) => {
                   pathname === `${i?.link}` ? `text-black-2` : `text-white group-hover:text-black-2`
                 )}
               >
-                <span className="">{i?.icon}</span>
+                <div className="min-w-[24px] min-h-[24px] grid">{i?.icon}</div>
                 <span
                   className={cn(
                     'text-[0.875rem] font-[600] transition-opacity duration-300 whitespace-nowrap',
@@ -154,7 +154,7 @@ const SideNav = ({ onNavAction }: ISideNav) => {
                   pathname === `${i?.link}` ? `text-black-2` : `text-white group-hover:text-black-2`
                 )}
               >
-                <span className="">{i?.icon}</span>
+                <div className="min-w-[24px] min-h-[24px] grid">{i?.icon}</div>
                 <span
                   className={cn(
                     'text-[0.875rem] font-[600] transition-opacity duration-300 whitespace-nowrap',
