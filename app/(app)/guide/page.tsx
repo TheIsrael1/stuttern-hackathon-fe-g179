@@ -1,8 +1,10 @@
 import Image from 'next/image';
-import guideVideoPlaceholder from '@/assets/images/guideVideoPh.png';
+// import guideVideoPlaceholder from '@/assets/images/guideVideoPh.png';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
 import authService from '@/adapters/auth';
+import dynamic from 'next/dynamic';
+const GuideVideo = dynamic(() => import('@/components/guide-video'), { ssr: false });
 
 export default async function page() {
   const data = await authService.getToken();
@@ -65,7 +67,8 @@ export default async function page() {
         ))}
       </div>
       <div className="flex flex-col gap-[3.69rem]  items-center">
-        <Image className="w-[27.9375rem] h-[15rem]" src={guideVideoPlaceholder} alt="" />
+        {/* <Image className="w-[27.9375rem] h-[15rem]" src={guideVideoPlaceholder} alt="" /> */}
+        <GuideVideo />
         <div className="w-full flex items-center justify-center gap-4">
           <Link href={`/database`}>
             <Button

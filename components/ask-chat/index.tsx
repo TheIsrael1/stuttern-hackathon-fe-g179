@@ -153,9 +153,9 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
   useEffect(() => {
     if (isDemo === 'true') {
       setActiveDb(databases?.data[0]?.id);
-      setCurrConversationId(history?.data?.[0]?.id);
+      setCurrConversationId(history?.data?.[history?.data?.length - 1]?.id);
     }
-  }, [isDemo, databases, conversation]);
+  }, [isDemo]);
 
   return (
     <div className="w-full h-full flex">
