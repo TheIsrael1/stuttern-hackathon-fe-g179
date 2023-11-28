@@ -12,7 +12,7 @@ import GuideIcon from '@/assets/svg/guideIcon';
 import { User } from '@nextui-org/react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { generateAvatarPlaceholderLink } from '@/lib';
+import { generateAvatarPlaceholderLink, truncateString } from '@/lib';
 import { useSession } from 'next-auth/react';
 import toast from 'react-hot-toast';
 
@@ -170,7 +170,7 @@ const SideNav = ({ onNavAction }: ISideNav) => {
       </div>
       <div className="w-full px-[1.5rem]">
         <User
-          name={user?.user?.name ?? 'anon'}
+          name={`${truncateString(`${user?.user?.name}`, 18)}` ?? 'anon'}
           description="user"
           avatarProps={{
             src:
@@ -181,11 +181,11 @@ const SideNav = ({ onNavAction }: ISideNav) => {
           }}
           classNames={{
             name: cn(
-              ` text-[1rem] font-[600] !text-white transition-opacity duration-300 whitespace-nowrap truncate ...`,
+              ` text-[1rem] font-[600] !text-white transition-opacity duration-300 w-full whitespace-nowrap truncate ...`,
               navOpen ? `opacity-100` : `md:scale-0 md:opacity-5`
             ),
             description: cn(
-              `!text-gray-1 !font-[500] !text-[0.875rem] transition-opacity duration-300 whitespace-nowrap truncate ...`,
+              `!text-gray-1 !font-[500] !text-[0.875rem] transition-opacity duration-300 w-full whitespace-nowrap truncate ...`,
               navOpen ? `opacity-100` : `md:scale-0 md:opacity-5`
             ),
             base: ``
