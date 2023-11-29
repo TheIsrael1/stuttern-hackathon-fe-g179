@@ -1,68 +1,29 @@
-import React, { useEffect, useRef } from 'react';
-import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
-import CursorBlinker from '../cursor-blinker';
+import React, { useEffect, useRef, useState } from 'react';
+// import { motion, useMotionValue, useTransform, animate } from 'framer-motion';
+// import CursorBlinker from '../cursor-blinker';
+import Typed from 'typed.js';
 
-const AnimatedText = ({ text }: { text: string }) => {
-  const count = useMotionValue(0);
-  const rounded = useTransform(count, (latest) => Math.round(latest));
-  const displayText = useTransform(rounded, (latest) => text.slice(0, latest));
+const AnimatedText = ({ html: htmlString }: { html: string }) => {
+  const typedRef = useRef<Typed | null>(null);
 
   useEffect(() => {
-    const controls = animate(count, text.length, {
-      type: 'tween',
-      duration: 5,
-      ease: 'easeInOut'
-    });
-
-    return () => {
-      controls.stop();
+    const options = {
+      strings: [htmlString],
+      typeSpeed: 20 // Adjust the typing speed as needed
     };
-  }, [text.length]);
 
-  return <motion.span>{displayText}</motion.span>;
-};
+    // Initialize Typed.js
+    typedRef.current = new Typed('#typist', options);
 
-const TextAnim = ({ html }: { html: string }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const contentArray: string[] = [];
-
-  const splitHtml = (html: string) => {
-    const div = document.createElement('div');
-    div.innerHTML = html;
-    return Array.from(div.children).map((child) => child.outerHTML);
-  };
-
-  const renderContent = (html: string) => {
-    const elements = splitHtml(html);
-
-    elements.forEach((tag) => {
-      if (tag.includes('<p')) {
-        const innerHTML = tag.replace(/<\/?p[^>]*>/g, ''); // Remove <p> tags
-        contentArray.push(`<p>${innerHTML}</p>`);
-      } else {
-        contentArray.push(tag);
+    // Clean up on unmount
+    return () => {
+      if (typedRef.current) {
+        typedRef.current.destroy();
       }
-    });
-  };
+    };
+  }, [htmlString]);
 
-  useEffect(() => {
-    renderContent(html);
-  }, [html]);
-
-  return (
-    <div ref={containerRef}>
-      {contentArray.map((content, index) => (
-        <React.Fragment key={index}>
-          {content.includes('<p') ? (
-            <AnimatedText text={content} />
-          ) : (
-            <span dangerouslySetInnerHTML={{ __html: content }} />
-          )}
-        </React.Fragment>
-      ))}
-      <CursorBlinker />
-    </div>
-  );
+  return <div id="typist" />;
 };
 
-export default TextAnim;
+export default AnimatedText;

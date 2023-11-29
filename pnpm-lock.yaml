@@ -17,6 +17,9 @@ dependencies:
   '@tanstack/react-query':
     specifier: ^5.8.4
     version: 5.8.4(react-dom@18.0.0)(react@18.0.0)
+  '@types/react-typist':
+    specifier: ^2.0.6
+    version: 2.0.6
   framer-motion:
     specifier: ^10.16.5
     version: 10.16.5(react-dom@18.0.0)(react@18.0.0)
@@ -59,12 +62,18 @@ dependencies:
   react-player:
     specifier: ^2.13.0
     version: 2.13.0(react@18.0.0)
+  react-typist:
+    specifier: ^2.0.5
+    version: 2.0.5(react-dom@18.0.0)(react@18.0.0)
   split-type:
     specifier: ^0.3.4
     version: 0.3.4
   tailwindcss-animate:
     specifier: ^1.0.7
     version: 1.0.7(tailwindcss@3.3.0)
+  typed.js:
+    specifier: ^2.1.0
+    version: 2.1.0
   usehooks-ts:
     specifier: ^2.9.1
     version: 2.9.1(react-dom@18.0.0)(react@18.0.0)
@@ -2681,6 +2690,12 @@ packages:
       '@types/react': 18.0.0
     dev: true
 
+  /@types/react-typist@2.0.6:
+    resolution: {integrity: sha512-/7tmwNwKLOAdL1kx0y7yel4DqOvdQSk13MlCnBX8GyLoYicrU7t8rPOzu2soFTzq0c6QAeX6uSqTRX3tdya7rg==}
+    dependencies:
+      '@types/react': 18.0.0
+    dev: false
+
   /@types/react@18.0.0:
     resolution: {integrity: sha512-7+K7zEQYu7NzOwQGLR91KwWXXDzmTFODRVizJyIALf6RfLv2GDpqpknX64pvRVILXCpXi7O/pua8NGk44dLvJw==}
     dependencies:
@@ -4848,6 +4863,17 @@ packages:
       - '@types/react'
     dev: false
 
+  /react-typist@2.0.5(react-dom@18.0.0)(react@18.0.0):
+    resolution: {integrity: sha512-iZCkeqeegO0TlkTMiH2JD1tvMtY9RrXkRylnAI6m8aCVAUUwNzoWTVF7CKLij6THeOMcUDCznLDDvNp55s+YZA==}
+    peerDependencies:
+      react: ^0.14 || ^15.0 || ^16.0
+      react-dom: ^^0.14 || ^15.0 || ^16.0
+    dependencies:
+      prop-types: 15.8.1
+      react: 18.0.0
+      react-dom: 18.0.0(react@18.0.0)
+    dev: false
+
   /react@18.0.0:
     resolution: {integrity: sha512-x+VL6wbT4JRVPm7EGxXhZ8w8LTROaxPXOqhlGyVSrv0sB1jkyFGgXxJ8LVoPRLvPR6/CIZGFmfzqUa2NYeMr2A==}
     engines: {node: '>=0.10.0'}
@@ -5304,6 +5330,10 @@ packages:
       for-each: 0.3.3
       is-typed-array: 1.1.12
     dev: true
+
+  /typed.js@2.1.0:
+    resolution: {integrity: sha512-bDuXEf7YcaKN4g08NMTUM6G90XU25CK3bh6U0THC/Mod/QPKlEt9g/EjvbYB8x2Qwr2p6J6I3NrsoYaVnY6wsQ==}
+    dev: false
 
   /typescript@5.3.2:
     resolution: {integrity: sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==}
