@@ -9,7 +9,7 @@ const AnimatedText = ({ html: htmlString }: { html: string }) => {
   useEffect(() => {
     const options = {
       strings: [htmlString],
-      typeSpeed: 20 // Adjust the typing speed as needed
+      typeSpeed: 500 // Adjust the typing speed as needed
     };
 
     // Initialize Typed.js
