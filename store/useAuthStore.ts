@@ -9,21 +9,16 @@ interface AuthStoreState {
   setActiveDb: (i: string) => void;
 }
 
-const useAuthStore = create<AuthStoreState>()(
-  persist(
-    (set) => ({
-      activeDb: '',
-      setActiveDb: (i: string) =>
-        set((state) => ({
-          activeDb: i
-        })),
-      setAuthDetails: (i: userDetailsInterface) =>
-        set((state) => ({
-          authDetails: i
-        }))
-    }),
-    { name: 'auth-storage' }
-  )
-);
+const useAuthStore = create<AuthStoreState>()((set) => ({
+  activeDb: '',
+  setActiveDb: (i: string) =>
+    set((state) => ({
+      activeDb: i
+    })),
+  setAuthDetails: (i: userDetailsInterface) =>
+    set((state) => ({
+      authDetails: i
+    }))
+}));
 
 export default useAuthStore;

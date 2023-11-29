@@ -66,7 +66,7 @@ const HistoryTab = ({ createConversation, history, setCurrConverstion, token }: 
                 <Image alt="" src={chatIcon} />
                 <span className="text-white font-[500] whitespace-nowrap truncate ...">
                   {i?.prompts?.length
-                    ? truncateString(i?.prompts[0]?.query, 10)
+                    ? truncateString(i?.prompts[i?.prompts?.length - 1]?.query, 10)
                     : truncateString(i?.id, 10)}
                 </span>
               </div>

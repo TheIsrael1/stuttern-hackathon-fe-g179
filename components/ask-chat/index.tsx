@@ -373,7 +373,11 @@ const Answer = ({
         className
       )}
     >
-      {!typewrite ? <span>{response}</span> : <TextAnim text={response} />}
+      {!typewrite ? (
+        <span dangerouslySetInnerHTML={{ __html: response }} />
+      ) : (
+        <span dangerouslySetInnerHTML={{ __html: response }} />
+      )}
     </div>
   );
 };
