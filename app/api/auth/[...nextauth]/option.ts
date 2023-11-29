@@ -13,7 +13,6 @@ export const options: AuthOptions = {
     async jwt({ token, user, account }) {
       if (account) {
         const data = await authService.login({ token: account.id_token! });
-        console.log('auth response', data);
         token.token = data?.access_token;
         return token;
       }

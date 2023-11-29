@@ -171,7 +171,7 @@ const SideNav = ({ onNavAction }: ISideNav) => {
       <div className="w-full px-[1.5rem]">
         <User
           name={`${truncateString(`${user?.user?.name}`, 16)}` ?? 'anon'}
-          description={user?.user?.email}
+          description={truncateString(`${user?.user?.email}`, 18)}
           avatarProps={{
             src:
               user?.user?.image ??
