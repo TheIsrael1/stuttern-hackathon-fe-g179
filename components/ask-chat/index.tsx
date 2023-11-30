@@ -169,7 +169,7 @@ const AskChat = ({ token }: IAskChat) => {
 
   useEffect(() => {
     if (isDemo === 'true') {
-      setActiveDb(`${databases?.data[0]?.id}`);
+      setActiveDb(`${databases?.data?.[0]?.id}`);
       setCurrConversationId(`${history?.data?.[history?.data?.length - 1]?.id}`);
     }
   }, [isDemo, databases, history]);
@@ -309,6 +309,7 @@ const AskChat = ({ token }: IAskChat) => {
             setCurrConversationId(i);
           }}
           isLoading={historyLoading}
+          currConversation={currConversationId}
         />
       </aside>
     </div>

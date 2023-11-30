@@ -55,14 +55,14 @@ const DbToggler = ({ databases, isLoading }: IDbToggler) => {
       <DropdownMenu aria-label="Static Actions" className="p-4">
         {isLoading ? (
           <Spinner color="white" className="mx-auto" />
-        ) : databases ? (
+        ) : databases?.length ? (
           databases?.map((i, idx) => (
             <DropdownItem onClick={() => setActiveDb(i?.id)} className="text-white" key={idx}>
               {constructDbDisplayName(i)}
             </DropdownItem>
           ))
         ) : (
-          <></>
+          <DropdownItem className="text-white">No Databases</DropdownItem>
         )}
       </DropdownMenu>
     </Dropdown>

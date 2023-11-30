@@ -15,7 +15,7 @@ export function objectToFormData(obj: Record<string, any>): FormData {
 }
 
 export function truncateString(inputString: string, maxLength: number): string {
-  if (inputString.length <= maxLength) {
+  if (inputString?.length <= maxLength) {
     return inputString;
   } else {
     return inputString.slice(0, maxLength) + '...';

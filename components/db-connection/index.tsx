@@ -18,7 +18,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { dbConnectionSchema, dbConnectionSchemaInterface } from './db-connection.model';
 import { Input } from '@nextui-org/react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import databaseService from '@/adapters/database';
 import toast from 'react-hot-toast';
 import connectionSuccessSvg from '@/assets/svg/database/celebration.svg';
@@ -35,6 +35,8 @@ const DbConnection = ({ token }: IDbConnection) => {
   const [selectedDb, setSelectedDb] = useState<dbTypeTypes>('mongodb');
   const [connectModalOpen, setConnectModalOpen] = useState(false);
   const { setActiveDb } = useAuthStore((store) => store);
+
+  const queryClient = useQueryClient();
 
   const router = useRouter();
 
@@ -58,6 +60,11 @@ const DbConnection = ({ token }: IDbConnection) => {
         params: data,
         token
       }),
+    onSuccess: () => {
+      queryClient.refetchQueries({
+        queryKey: ['get-Databases']
+      });
+    },
     onError: (err) => {
       toast.error(`${err}`);
     }

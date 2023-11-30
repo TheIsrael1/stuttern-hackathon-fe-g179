@@ -22,13 +22,15 @@ interface IHistoryTab {
   setCurrConverstion: (i: string) => void;
   createConversation: () => void;
   isLoading: boolean;
+  currConversation: string;
 }
 
 const HistoryTab = ({
   createConversation,
   history,
   setCurrConverstion,
-  isLoading
+  isLoading,
+  currConversation
 }: IHistoryTab) => {
   return (
     <div
@@ -56,7 +58,10 @@ const HistoryTab = ({
           {history?.data?.map((i, idx) => (
             <div
               key={idx}
-              className="flex items-center gap-[0.75rem] px-[0.75rem] py-[0.62rem] hover:bg-white/10 rounded-[0.5rem] transition-colors ease-in-out duration-300 cursor-pointer"
+              className={cn(
+                'flex items-center gap-[0.75rem] px-[0.75rem] py-[0.62rem]  hover:bg-white/10 rounded-[0.5rem] transition-colors ease-in-out duration-300 cursor-pointer',
+                currConversation === i?.id ? `bg-white/10` : ``
+              )}
             >
               <div className="flex-grow flex items-center gap-[0.5rem]">
                 <Image alt="" src={chatIcon} />
