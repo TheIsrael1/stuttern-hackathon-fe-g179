@@ -1,6 +1,13 @@
 'use client';
 
-import { Dropdown, DropdownTrigger, DropdownMenu, DropdownItem, Button } from '@nextui-org/react';
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+  Button,
+  Spinner
+} from '@nextui-org/react';
 import DbIcon from '@/assets/svg/dbIcon';
 import { dbInterface } from '@/types/api.types';
 import useAuthStore from '@/store/useAuthStore';
@@ -9,10 +16,11 @@ import { useMemo } from 'react';
 import { constructDbDisplayName } from './db-toggler.utils';
 
 interface IDbToggler {
-  databases: dbInterface[];
+  databases?: dbInterface[];
+  isLoading?: boolean;
 }
 
-const DbToggler = ({ databases }: IDbToggler) => {
+const DbToggler = ({ databases, isLoading }: IDbToggler) => {
   const { activeDb, setActiveDb } = useAuthStore((store) => store);
 
   const activeDbData = useMemo(() => {
@@ -45,11 +53,17 @@ const DbToggler = ({ databases }: IDbToggler) => {
         </Button>
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions" className="p-4">
-        {databases?.map((i, idx) => (
-          <DropdownItem onClick={() => setActiveDb(i?.id)} className="text-white" key={idx}>
-            {constructDbDisplayName(i)}
-          </DropdownItem>
-        ))}
+        {isLoading ? (
+          <Spinner color="white" className="mx-auto" />
+        ) : databases ? (
+          databases?.map((i, idx) => (
+            <DropdownItem onClick={() => setActiveDb(i?.id)} className="text-white" key={idx}>
+              {constructDbDisplayName(i)}
+            </DropdownItem>
+          ))
+        ) : (
+          <></>
+        )}
       </DropdownMenu>
     </Dropdown>
   );

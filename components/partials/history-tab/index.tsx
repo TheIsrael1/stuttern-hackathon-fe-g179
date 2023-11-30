@@ -18,22 +18,18 @@ import { truncateString } from '@/lib';
 import toast from 'react-hot-toast';
 
 interface IHistoryTab {
-  history: ApiInterface<conversationInterface[]>;
+  history?: ApiInterface<conversationInterface[]>;
   setCurrConverstion: (i: string) => void;
   createConversation: () => void;
-  token: string;
+  isLoading: boolean;
 }
 
-const HistoryTab = ({ createConversation, history, setCurrConverstion, token }: IHistoryTab) => {
-  const { data, isLoading } = useQuery<any, any, ApiInterface<conversationInterface[]>>({
-    queryKey: ['get-all-conversation'],
-    queryFn: () =>
-      conversationService.getAllConversations({
-        token
-      }),
-    initialData: history
-  });
-
+const HistoryTab = ({
+  createConversation,
+  history,
+  setCurrConverstion,
+  isLoading
+}: IHistoryTab) => {
   return (
     <div
       className={cn(
@@ -57,7 +53,7 @@ const HistoryTab = ({ createConversation, history, setCurrConverstion, token }: 
         </div>
       ) : (
         <div className="w-full flex flex-col gap-[1.5rem] max-h-max overflow-auto">
-          {data?.data?.map((i, idx) => (
+          {history?.data?.map((i, idx) => (
             <div
               key={idx}
               className="flex items-center gap-[0.75rem] px-[0.75rem] py-[0.62rem] hover:bg-white/10 rounded-[0.5rem] transition-colors ease-in-out duration-300 cursor-pointer"

@@ -7,29 +7,33 @@ import { redirect } from 'next/navigation';
 
 export default async function page() {
   const tokenData = await authService.getToken();
-  let databases: ApiInterface<dbInterface[]> = { data: [], status: '' };
-  let history: ApiInterface<conversationInterface[]> = { data: [], status: '' };
+  // let databases: ApiInterface<dbInterface[]> = { data: [], status: '' };
+  // let history: ApiInterface<conversationInterface[]> = { data: [], status: '' };
 
-  try {
-    const [databaseData, historyData] = await Promise.all([
-      databaseService.getDatabases({
-        token: tokenData?.token?.token
-      }),
-      conversationService.getAllConversations({
-        token: tokenData?.token?.token
-      })
-    ]);
+  // try {
+  //   const [databaseData, historyData] = await Promise.all([
+  //     databaseService.getDatabases({
+  //       token: tokenData?.token?.token
+  //     }),
+  //     conversationService.getAllConversations({
+  //       token: tokenData?.token?.token
+  //     })
+  //   ]);
 
-    databases = databaseData;
-    history = historyData;
-  } catch (err) {
-    console.log('An error occurred', err);
-    redirect('/error');
-  }
+  //   databases = databaseData;
+  //   history = historyData;
+  // } catch (err) {
+  //   console.log('An error occurred', err);
+  //   redirect('/error');
+  // }
 
   return (
     <main className="w-full h-full">
-      <AskChat history={history} initDatabases={databases} token={tokenData?.token?.token} />
+      <AskChat
+        // history={history}
+        // initDatabases={databases}
+        token={tokenData?.token?.token}
+      />
     </main>
   );
 }

@@ -30,11 +30,11 @@ import { useSearchParams } from 'next/navigation';
 
 interface IAskChat {
   token: string;
-  initDatabases: ApiInterface<dbInterface[]>;
-  history: ApiInterface<conversationInterface[]>;
+  initDatabases?: ApiInterface<dbInterface[]>;
+  history?: ApiInterface<conversationInterface[]>;
 }
 
-const AskChat = ({ history, initDatabases, token }: IAskChat) => {
+const AskChat = ({ token }: IAskChat) => {
   const queryClient = useQueryClient();
   const { data: user } = useSession();
   const { activeDb, setActiveDb } = useAuthStore((store) => store);
@@ -47,13 +47,17 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
 
   const chatBlockBaseRef = useRef<HTMLDivElement | null>(null);
 
-  const { data: databases, isLoading } = useQuery<any, any, ApiInterface<dbInterface[]>>({
+  const { data: databases, isLoading: databasesLoaing } = useQuery<
+    any,
+    any,
+    ApiInterface<dbInterface[]>
+  >({
     queryKey: ['get-Databases'],
     queryFn: () =>
       databaseService.getDatabases({
         token
-      }),
-    initialData: initDatabases
+      })
+    // initialData: initDatabases
   });
 
   const { data: conversation, isLoading: conversationLoading } = useQuery<
@@ -68,6 +72,19 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
         }
       }),
     enabled: currConversationId?.length ? true : false
+  });
+
+  const { data: history, isLoading: historyLoading } = useQuery<
+    any,
+    any,
+    ApiInterface<conversationInterface[]>
+  >({
+    queryKey: ['get-all-conversation'],
+    queryFn: () =>
+      conversationService.getAllConversations({
+        token
+      })
+    // initialData: history
   });
 
   const {
@@ -152,10 +169,10 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
 
   useEffect(() => {
     if (isDemo === 'true') {
-      setActiveDb(databases?.data[0]?.id);
-      setCurrConversationId(history?.data?.[history?.data?.length - 1]?.id);
+      setActiveDb(`${databases?.data[0]?.id}`);
+      setCurrConversationId(`${history?.data?.[history?.data?.length - 1]?.id}`);
     }
-  }, [isDemo]);
+  }, [isDemo, databases, history]);
 
   return (
     <div className="w-full h-full flex">
@@ -166,7 +183,7 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
       ) : (
         <div className="flex-grow w-full container px-container-base relative">
           <div className="absolute top-[1.87rem] right-[1.31rem]">
-            <DbToggler databases={databases?.data} />
+            <DbToggler isLoading={databasesLoaing} databases={databases?.data} />
           </div>
           {conversation?.data?.prompts?.length || promtCreationLoading ? (
             <div className="w-full h-full flex flex-col pt-[5rem] pb-[2rem] ">
@@ -286,12 +303,12 @@ const AskChat = ({ history, initDatabases, token }: IAskChat) => {
       )}
       <aside className="hidden lg:block h-full w-max z-[1]">
         <HistoryTab
-          token={token}
           history={history}
           createConversation={() => createNewConversation()}
           setCurrConverstion={(i) => {
             setCurrConversationId(i);
           }}
+          isLoading={historyLoading}
         />
       </aside>
     </div>
