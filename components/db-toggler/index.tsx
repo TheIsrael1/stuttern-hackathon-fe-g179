@@ -11,7 +11,6 @@ import {
 import DbIcon from '@/assets/svg/dbIcon';
 import { dbInterface } from '@/types/api.types';
 import useAuthStore from '@/store/useAuthStore';
-import { dbImages } from '../db-connection/db-connection.data';
 import { useMemo } from 'react';
 import { constructDbDisplayName } from './db-toggler.utils';
 
@@ -54,7 +53,9 @@ const DbToggler = ({ databases, isLoading }: IDbToggler) => {
       </DropdownTrigger>
       <DropdownMenu aria-label="Static Actions" className="p-4">
         {isLoading ? (
-          <Spinner color="white" className="mx-auto" />
+          <DropdownItem className="text-white" key={'loader'}>
+            <Spinner color="white" className="mx-auto" />
+          </DropdownItem>
         ) : databases?.length ? (
           databases?.map((i, idx) => (
             <DropdownItem onClick={() => setActiveDb(i?.id)} className="text-white" key={idx}>
