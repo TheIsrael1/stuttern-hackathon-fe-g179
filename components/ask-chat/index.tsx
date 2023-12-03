@@ -25,7 +25,6 @@ import toast from 'react-hot-toast';
 const DbToggler = dynamic(() => import('@/components/db-toggler'), { ssr: false });
 import logo from '@/assets/svg/logo.svg';
 import ReactLoading from 'react-loading';
-import { Skeleton } from '@nextui-org/react';
 import { useSearchParams } from 'next/navigation';
 
 interface IAskChat {
@@ -40,6 +39,8 @@ const AskChat = ({ token }: IAskChat) => {
   const { activeDb, setActiveDb } = useAuthStore((store) => store);
   const [propmt, setPrompt] = useState(``);
   const [currConversationId, setCurrConversationId] = useState(``);
+  const [delayLoadingTimeoutIds, setDelayLoadingTimeoutIds] = useState<NodeJS.Timeout[]>([]);
+  const [delayToastLoadingId, setDelayToastLoadingId] = useState('');
 
   const searchParams = useSearchParams();
 
@@ -47,7 +48,7 @@ const AskChat = ({ token }: IAskChat) => {
 
   const chatBlockBaseRef = useRef<HTMLDivElement | null>(null);
 
-  const { data: databases, isLoading: databasesLoaing } = useQuery<
+  const { data: databases, isLoading: databasesLoading } = useQuery<
     any,
     any,
     ApiInterface<dbInterface[]>
@@ -174,16 +175,43 @@ const AskChat = ({ token }: IAskChat) => {
     }
   }, [isDemo, databases, history]);
 
+  useEffect(() => {
+    if (conversationLoading || databasesLoading) {
+      if (!delayToastLoadingId.length) {
+        const timeoutId = setTimeout(() => {
+          const id = toast.loading(
+            `Request is taking longer than expected, seems the server slept`
+          );
+          setDelayToastLoadingId(id);
+        }, 5000);
+        setDelayLoadingTimeoutIds((prev) => {
+          return [...prev, timeoutId];
+        });
+      }
+    } else {
+      toast.dismiss(delayToastLoadingId);
+      setDelayToastLoadingId(``);
+      delayLoadingTimeoutIds?.forEach((i) => {
+        clearTimeout(i);
+      });
+    }
+    return () => {
+      delayLoadingTimeoutIds?.forEach((i) => {
+        clearTimeout(i);
+      });
+    };
+  }, [conversationLoading, databasesLoading]);
+
   return (
     <div className="w-full h-full flex">
-      {conversationLoading ? (
+      {conversationLoading || conversationCreationLoading || databasesLoading ? (
         <div className="flex-grow w-full grid place-items-center container px-container-base relative">
           <ReactLoading color="#ffffff" type="spin" />
         </div>
       ) : (
         <div className="flex-grow w-full container px-container-base relative">
           <div className="absolute top-[1.87rem] right-[1.31rem]">
-            <DbToggler isLoading={databasesLoaing} databases={databases?.data} />
+            <DbToggler isLoading={databasesLoading} databases={databases?.data} />
           </div>
           {conversation?.data?.prompts?.length || promtCreationLoading ? (
             <div className="w-full h-full flex flex-col pt-[5rem] pb-[2rem] ">
