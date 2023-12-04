@@ -180,7 +180,7 @@ const AskChat = ({ token }: IAskChat) => {
       if (!delayToastLoadingId.length) {
         const timeoutId = setTimeout(() => {
           const id = toast.loading(
-            `Request is taking longer than expected, seems the server slept`
+            `Request is taking longer than expected, seems the server slept as we are using a shared server, pls wait a little bit while we wake it up :)`
           );
           setDelayToastLoadingId(id);
         }, 5000);
